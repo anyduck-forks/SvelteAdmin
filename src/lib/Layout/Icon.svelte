@@ -1,12 +1,11 @@
 <script lang="ts">
 	import type { ActionIcon } from '$lib/Actions';
-	import { SvelteComponent } from 'svelte';
 
 	export let icon: ActionIcon;
 
 	if (
 		icon &&
-		!(icon instanceof SvelteComponent) &&
+		!(icon instanceof Object) &&
 		typeof icon !== 'function' &&
 		typeof icon !== 'string' &&
 		typeof icon?.$$render === 'undefined'
@@ -15,7 +14,7 @@
 	}
 </script>
 
-{#if icon instanceof SvelteComponent || typeof icon === 'function' || typeof icon?.$$render !== 'undefined'}
+{#if icon instanceof Object || typeof icon === 'function' || typeof icon?.$$render !== 'undefined'}
 	<svelte:component this={icon} {...$$restProps} />
 {:else if typeof icon === 'string'}
 	{icon}
